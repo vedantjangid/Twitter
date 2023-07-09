@@ -1,7 +1,12 @@
 import { Image, StyleSheet, Text, View } from 'react-native';
+import { TweetType } from '../types';
 
 
-const Tweet = ({tweet}) => {
+type TweetProps = {
+  tweet: TweetType;
+}
+
+const Tweet = ({tweet}:TweetProps) => {
   
   return (
     <View style={styles.container}>
