@@ -1,9 +1,10 @@
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View, Pressable } from 'react-native';
 import { TweetType } from '../types';
 import { Entypo } from '@expo/vector-icons';
 import tweets from '../assets/data/tweets';
 import React from 'react';
 import IconButton from './IconButton';
+import { Link } from 'expo-router';
 
 
 
@@ -15,8 +16,8 @@ type TweetProps = {
 const Tweet = ({ tweet }: TweetProps) => {
 
   return (
-    <>
-      <View style={styles.container}>
+    <Link href={`/tweet/${tweet.id}`} asChild>
+      <Pressable style={styles.container}>
         {/* <Image  src={tweet.user.image} style={styles.userImage} /> */}
         <Image source={{ uri: tweet.user.image }} style={styles.userImage} />
 
@@ -59,9 +60,9 @@ const Tweet = ({ tweet }: TweetProps) => {
 
         </View>
 
-      </View>
+      </Pressable>
 
-    </>
+    </Link>
   )
 }
 
