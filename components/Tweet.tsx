@@ -66,7 +66,7 @@ const Tweet = ({ tweet }: TweetProps) => {
   )
 }
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     padding: 15,
