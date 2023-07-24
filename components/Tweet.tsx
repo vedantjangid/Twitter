@@ -3,11 +3,26 @@ import { TweetType } from '../types';
 import { Entypo } from '@expo/vector-icons';
 import tweets from '../assets/data/tweets';
 import React from 'react';
-import IconButton from './IconButton';
 import { Link } from 'expo-router';
 
 
 
+
+type IconButtonProps = {
+  icon: React.ComponentProps<typeof Entypo>['name'];
+  text?: string | number;
+}
+
+const IconButton = ({ icon, text }: IconButtonProps) => {
+  return (
+
+
+    <View style={{ flexDirection: 'row', alignItems: 'center' }} >
+      <Entypo name={icon} size={16} color="grey" />
+      <Text style={styles.font}>{text}</Text>
+    </View>
+  )
+}
 
 type TweetProps = {
   tweet: TweetType;
@@ -60,9 +75,9 @@ const Tweet = ({ tweet }: TweetProps) => {
 
         </View>
 
-      </Pressable>
+      </Pressable >
 
-    </Link>
+    </Link >
   )
 }
 
@@ -122,6 +137,15 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginTop: 20,
   },
+
+
+  font: {
+    marginLeft: 5,
+    color: 'grey',
+    opacity: 0.5,
+    fontSize: 12,
+
+  }
 
 
 

@@ -3,14 +3,18 @@ import Tweet from '../../components/Tweet';
 import { View } from '../../components/Themed';
 import tweets from '../../assets/data/tweets';
 import { FlashList } from "@shopify/flash-list";
+
 import { Entypo } from '@expo/vector-icons';
 import { Link } from 'expo-router';
+
+
 
 
 export default function TabOneScreen() {
 
   return (
     <View style={styles.page}>
+
       <FlashList data={tweets} estimatedItemSize={313} renderItem={({ item }) => {
         return (
           <Tweet tweet={item} />
@@ -26,6 +30,7 @@ export default function TabOneScreen() {
       <Link href="/new-tweet" style={styles.button} >
         <Entypo name="feather" size={24} color="white" />
       </Link>
+
 
     </View>
   );
@@ -62,10 +67,6 @@ const styles = StyleSheet.create({
     elevation: 8,
     lineHeight: 50,
     overflow: 'hidden',
-
-
-
-
 
   },
 
