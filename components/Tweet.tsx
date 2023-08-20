@@ -41,8 +41,8 @@ const Tweet = ({ tweet }: TweetProps) => {
           <View style={{ flexDirection: 'row' }}>
             <Text style={styles.name}>{tweet.user.name}</Text>
             <Text style={styles.username}>@{tweet.user.username}</Text>
-            <Text style={styles.createdAt}>2h ago</Text>
-            <Entypo name="dots-three-horizontal" size={16} color="grey" style={styles.menu} />
+            <Text style={styles.menu}>2h ago</Text>
+
           </View>
 
 
@@ -51,13 +51,16 @@ const Tweet = ({ tweet }: TweetProps) => {
           {/* <Image style={styles.image} src={tweet.image} /> */}
 
           {tweet.image && <Image style={styles.image} source={{ uri: tweet.image }} />}
-          <View style={styles.footer}>
+          {/* style={styles.footer} */}
+          <View >
+            <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around' }} >
 
-            <IconButton icon={'heart'} text={tweet.numberOfLikes} />
-            <IconButton icon={'chat'} text={tweet.numberOfComments} />
-            <IconButton icon={'retweet'} text={tweet.numberOfRetweets} />
-            <IconButton icon={'bar-graph'} text={tweet.impressions || 0} />
-            <IconButton icon={'share'} />
+              <IconButton icon={'heart'} text={tweet.numberOfLikes} />
+              {/* <IconButton icon={'chat'} text={tweet.numberOfComments} /> */}
+              <IconButton icon={'retweet'} text={tweet.numberOfRetweets} />
+              {/* <IconButton icon={'bar-graph'} text={tweet.impressions || 0} /> */}
+              <IconButton icon={'share'} />
+            </View>
 
             {/* <View style={{ flexDirection: 'row', alignItems: 'center' }} >
               <Entypo name="retweet" size={16} color="grey" />

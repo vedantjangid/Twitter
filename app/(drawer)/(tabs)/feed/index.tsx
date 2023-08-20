@@ -1,7 +1,7 @@
 import { StyleSheet, FlatList, Pressable, Text } from 'react-native';
-import Tweet from '../../../components/Tweet';
-import { View } from '../../../components/Themed';
-import tweets from '../../../assets/data/tweets';
+import Tweet from '../../../../components/Tweet';
+import { View } from '../../../../components/Themed';
+import tweets from '../../../../assets/data/tweets';
 import { FlashList } from "@shopify/flash-list";
 
 import { Entypo } from '@expo/vector-icons';

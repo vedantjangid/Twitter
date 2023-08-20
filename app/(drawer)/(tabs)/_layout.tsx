@@ -4,6 +4,8 @@ import { Pressable, useColorScheme } from 'react-native';
 import { Image } from 'react-native';
 import Colors from '../../../constants/Colors';
 
+
+
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
  */
@@ -34,9 +36,9 @@ export default function TabLayout() {
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
       }}>
       <Tabs.Screen
-        name="index"
+        name="feed"
         options={{
-          title: 'Home',
+          title: 'Feed',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           headerRight: () => (
             <Link href="/modal" asChild>
