@@ -1,7 +1,7 @@
 import { Image, StyleSheet, Text, View, Pressable } from 'react-native';
 import { TweetType } from '../types';
 import { Entypo } from '@expo/vector-icons';
-import tweets from '../assets/data/tweets';
+
 import React from 'react';
 import { Link } from 'expo-router';
 
@@ -31,17 +31,18 @@ type TweetProps = {
 const Tweet = ({ tweet }: TweetProps) => {
 
   return (
-    <Link href={`/tweet/${tweet.id}`} asChild>
+    <Link href={`/drawer/tabs/feed/tweet/${tweet.id}`} asChild>
       <Pressable style={styles.container}>
         {/* <Image  src={tweet.user.image} style={styles.userImage} /> */}
-        <Image source={{ uri: tweet.user.image }} style={styles.userImage} />
+        <Image source={{ uri: tweet.user.image }} style={styles.userImage}
+          onError={(error) => console.log("Image error: ", error)} />
 
         <View style={styles.tweetHeaderContainer}>
 
           <View style={{ flexDirection: 'row' }}>
             <Text style={styles.name}>{tweet.user.name}</Text>
             <Text style={styles.username}>@{tweet.user.username}</Text>
-            <Text style={styles.menu}>2h ago</Text>
+            <Text style={styles.menu}>{tweet.createdAt} ago</Text>
 
           </View>
 

@@ -1,23 +1,66 @@
-import { StyleSheet, FlatList, Pressable, Text } from 'react-native';
+import { StyleSheet, FlatList, Pressable, Text, ActivityIndicator } from 'react-native';
 import Tweet from '../../../../components/Tweet';
 import { View } from '../../../../components/Themed';
-import tweets from '../../../../assets/data/tweets';
+// import tweets from '../../../../assets/data/tweets';
 import { FlashList } from "@shopify/flash-list";
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { listTweets } from '../../../../lib/api/tweets';
+import { useQuery } from '@tanstack/react-query';
 
 import { Entypo } from '@expo/vector-icons';
 import { Link } from 'expo-router';
+import { TweetType } from '../../../../types';
 
 
 
 
-export default function TabOneScreen() {
+
+export default function FeedScreen() {
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['tweets'],
+    queryFn: listTweets,
+  })
+  // const [tweets, setTweets] = useState()
+
+  // useEffect(() => {
+  //   const fetchTweets = async () => {
+  //     const newTweets = await listTweets()
+  //     setTweets(newTweets)
+  //   }
+  //   fetchTweets()
+
+
+  // }, [])
+
+
+  if (isLoading) return <ActivityIndicator style={{ marginTop: 250 }} size="large" />
+  if (error) return <Text style={{
+    color: '#000000', // A softer, complementary color
+    textAlign: 'center',
+    marginTop: 200,
+    fontSize: 24,
+    fontWeight: 'bold',
+    fontStyle: 'italic',
+    textShadowColor: 'rgba(0, 0, 0, 0.1)', // A subtle shadow with less contrast
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
+  }}>
+    {error.message as any}
+  </Text>
+
+
+
+
+
+
 
   return (
     <View style={styles.page}>
 
-      <FlashList data={tweets} estimatedItemSize={313} renderItem={({ item }) => {
+      <FlashList data={data} estimatedItemSize={313} renderItem={({ item }) => {
         return (
-          <Tweet tweet={item} />
+          <Tweet tweet={item as TweetType} />
         )
       }} />
 
@@ -53,6 +96,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     shadowColor: "#000",
+
     textAlign: 'center',
 
 
