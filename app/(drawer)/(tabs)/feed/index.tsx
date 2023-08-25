@@ -21,6 +21,8 @@ export default function FeedScreen() {
     queryKey: ['tweets'],
     queryFn: listTweets,
   })
+
+
   // const [tweets, setTweets] = useState()
 
   // useEffect(() => {
@@ -46,7 +48,7 @@ export default function FeedScreen() {
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 2,
   }}>
-    {error.message as any}
+    {error.message}
   </Text>
 
 
@@ -70,8 +72,10 @@ export default function FeedScreen() {
       )
         } } /> */}
 
-      <Link href="/new-tweet" style={styles.button} >
+      <Link href="/new-tweet" style={styles.button}>
+
         <Entypo name="feather" size={24} color="white" />
+
       </Link>
 
 
@@ -86,10 +90,11 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   button: {
-    backgroundColor: '#1DA1F2',
+    backgroundColor: 'black',
     position: 'absolute',
     bottom: 20,
-    right: 20,
+    left: '50%',
+    transform: [{ translateX: -25 }],
     width: 50,
     height: 50,
     borderRadius: 25,
@@ -113,7 +118,6 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
 
   },
-
 
 });
 

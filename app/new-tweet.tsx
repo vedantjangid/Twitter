@@ -1,9 +1,13 @@
 import { Link, useRouter } from "expo-router";
 import { View } from "../components/Themed";
-import { StyleSheet, Text, Image, TextInput, Pressable } from "react-native";
+import { StyleSheet, Text, Image, TextInput, Pressable, ActivityIndicator } from "react-native";
 import { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute, } from "@react-navigation/native";
+import { createTweet } from "../lib/api/tweets";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { listTweets } from "../lib/api/tweets";
+
 
 
 
@@ -21,11 +25,37 @@ export default function NewTweet() {
     const router = useRouter();
 
 
+    const queryClient = useQueryClient()
 
-    const onTweetPress = () => {
-        console.warn('Tweeted ' + tweet);
-        router.back();
+    const { mutateAsync, isLoading, error, isError } = useMutation({
+        mutationFn: createTweet,
+        onSuccess: (data) => {
+            queryClient.setQueriesData(['tweets'], (oldTweets: any) => {
+                return [data, ...oldTweets]
+
+            })
+        }
+
     }
+    )
+
+    const onTweetPress = async () => {
+        try {
+            await mutateAsync({ content: tweet })
+            setTweet('')
+            router.back()
+        } catch (error) {
+            console.log('Error: ', error.message)
+        }
+
+
+    }
+
+
+
+
+
+
     return (
 
         <SafeAreaView style={styles.container}>
@@ -33,6 +63,7 @@ export default function NewTweet() {
                 <Link href={'../'} >
                     <Text style={styles.cancel}>Cancel</Text>
                 </Link>
+                {isLoading && <ActivityIndicator />}
                 <Pressable onPress={onTweetPress} style={styles.tweet}>
                     <Text style={{ color: 'white', fontWeight: '600' }} >Tweet</Text>
                 </Pressable>
@@ -46,7 +77,6 @@ export default function NewTweet() {
                     onChange={
                         (newValue) => {
                             setTweet(newValue.nativeEvent.text)
-                            console.log(tweet)
                         }}
                     value={tweet}
                     multiline={true}
@@ -54,7 +84,7 @@ export default function NewTweet() {
                     style={styles.input}
                     placeholder={"What's happening?"}
                 />
-
+                {isError && <Text style={{ color: 'red' }}>Error</Text>}
             </View>
 
         </SafeAreaView>

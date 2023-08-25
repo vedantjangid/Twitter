@@ -7,7 +7,13 @@ import { useColorScheme } from 'react-native';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 
-const client = new QueryClient()
+const client = new QueryClient({
+  defaultOptions: {
+    queries: {
+      cacheTime: 60000, // Cache data for 60 seconds
+    },
+  },
+})
 
 export {
   // Catch any errors thrown by the Layout component.

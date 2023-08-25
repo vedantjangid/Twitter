@@ -31,7 +31,10 @@ type TweetProps = {
 const Tweet = ({ tweet }: TweetProps) => {
 
   return (
-    <Link href={`/drawer/tabs/feed/tweet/${tweet.id}`} asChild>
+    // /feed/tweet/${tweet.id}
+    // ../app/drawer/tabs/feed/tweet/[id].tsx
+
+    <Link href={`/feed/tweet/${tweet.id}`} asChild>
       <Pressable style={styles.container}>
         {/* <Image  src={tweet.user.image} style={styles.userImage} /> */}
         <Image source={{ uri: tweet.user.image }} style={styles.userImage}
@@ -84,6 +87,7 @@ const Tweet = ({ tweet }: TweetProps) => {
     </Link >
   )
 }
+
 
 export const styles = StyleSheet.create({
   container: {

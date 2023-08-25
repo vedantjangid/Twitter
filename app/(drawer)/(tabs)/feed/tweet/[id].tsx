@@ -1,21 +1,29 @@
-import { View, Text } from "react-native";
+import { View, Text, ActivityIndicator } from "react-native";
 import Tweet from "../../../../../components/Tweet";
-import tweets from "../../../../../assets/data/tweets";
+import { useQuery } from "@tanstack/react-query";
+import { getTweet } from "../../../../../lib/api/tweets";
 import { useSearchParams } from "expo-router";
 
 export default function TweetScreen() {
     const { id } = useSearchParams();
+    const { data, isLoading, error } = useQuery({
+        queryKey: ['tweet', id],
+        queryFn: () => getTweet(id as string),
+    })
 
-    const tweet = tweets.find((tweet) => tweet.id === id);
-    if (!tweet) {
-        return (
-            <View>
-                <Text> Tweet not found</Text>
-            </View>
-        )
-    }
+
+    // if (!tweet) {
+    //     return (
+    //         <View>
+    //             <Text> Tweet not found</Text>
+    //         </View>
+    //     )
+    // }
+    if (isLoading) return <ActivityIndicator size={"large"} style={{ marginTop: 250 }} />
+
+    if (error) return <Text>error</Text>
 
     return (
-        <Tweet tweet={tweet} />
+        <Tweet tweet={data} />
     )
 }
