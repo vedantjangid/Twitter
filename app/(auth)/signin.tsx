@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import React, { useState } from 'react';
 import { useRouter } from 'expo-router';
+import { login } from '../../lib/api/auth';
 
 
 const SignIn = () => {
@@ -15,9 +16,16 @@ const SignIn = () => {
     const [email, setEmail] = useState('')
     const router = useRouter()
 
-    const onSignInPress = () => {
+    const onSignInPress = async () => {
         console.warn('Sign in', email)
-        router.push({ pathname: 'authenticate', params: { email } })
+        try {
+            await login({ email })
+            router.push({ pathname: 'authenticate', params: { email } })
+        } catch (error) {
+            Alert.alert('Error', error.message)
+        }
+
+
     }
 
     return (
@@ -50,6 +58,7 @@ const styles = StyleSheet.create({
     label: {
         fontSize: 28,
         marginVertical: 10,
+        paddingTop: 30,
         color: '#333',
         textAlign: 'center',
         marginTop: 10, // Push the label to the top

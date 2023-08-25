@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import React, { useState } from 'react';
 import { useSearchParams } from 'expo-router';
+import { authenticate } from '../../lib/api/auth';
 
 
 const Authenticate = () => {
@@ -15,8 +16,18 @@ const Authenticate = () => {
     const [code, setCode] = useState('')
     const { email } = useSearchParams()
 
-    const onConfirm = () => {
-        console.warn('Sign in with the code that was sent to your mail', code, email)
+    const onConfirm = async () => {
+        // console.warn('Sign in with the code that was sent to your mail', code, email)
+        if (typeof email !== 'string') { return }
+
+        try {
+            console.log(code)
+            const res = await authenticate({ email, emailToken: code })
+            console.log('Response: ', res)
+        } catch (error) {
+            Alert.alert('Error email code does not match', error.message)
+
+        }
         // console.warn('Your code was ', code)
     }
 
@@ -25,7 +36,7 @@ const Authenticate = () => {
             <Text style={styles.label}>Enter the Authentication code</Text>
 
             <TextInput
-                placeholder="Email"
+                placeholder="Code"
                 value={code}
                 onChangeText={setCode}
                 style={styles.input}
@@ -50,6 +61,8 @@ const styles = StyleSheet.create({
     label: {
         fontSize: 28,
         marginVertical: 10,
+        paddingTop: 30,
+
         color: '#333',
         textAlign: 'center',
         marginTop: 10, // Push the label to the top
