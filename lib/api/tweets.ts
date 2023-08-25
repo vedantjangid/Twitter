@@ -82,3 +82,7 @@ export const listTweets = async () => {
         return await res.json();
         
         }
+
+        export const login = async (data : {email : string}) => {
+          
+        }
