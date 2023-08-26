@@ -5,7 +5,7 @@ import { View } from '../../../../components/Themed';
 import { FlashList } from "@shopify/flash-list";
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { listTweets } from '../../../../lib/api/tweets';
+import { useTweetsApi } from '../../../../lib/api/tweets';
 import { useQuery } from '@tanstack/react-query';
 
 import { Entypo } from '@expo/vector-icons';
@@ -17,6 +17,8 @@ import { TweetType } from '../../../../types';
 
 
 export default function FeedScreen() {
+  const { listTweets } = useTweetsApi()
+
   const { data, isLoading, error } = useQuery({
     queryKey: ['tweets'],
     queryFn: listTweets,

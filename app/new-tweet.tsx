@@ -4,9 +4,12 @@ import { StyleSheet, Text, Image, TextInput, Pressable, ActivityIndicator } from
 import { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation, useRoute, } from "@react-navigation/native";
-import { createTweet } from "../lib/api/tweets";
+import { useTweetsApi } from "../lib/api/tweets";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { listTweets } from "../lib/api/tweets";
+import { getUser } from "../lib/api/user";
+
+
+
 
 
 
@@ -23,7 +26,7 @@ export default function NewTweet() {
 
     const [tweet, setTweet] = useState('');
     const router = useRouter();
-
+    const { createTweet } = useTweetsApi()
 
     const queryClient = useQueryClient()
 
@@ -43,6 +46,8 @@ export default function NewTweet() {
         try {
             await mutateAsync({ content: tweet })
             setTweet('')
+            // const userData = await getUser('jangidvedant01@gmail.com')
+            // console.log('User: ', userData)
             router.back()
         } catch (error) {
             console.log('Error: ', error.message)

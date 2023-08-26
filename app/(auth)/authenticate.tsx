@@ -9,12 +9,20 @@ import {
 import React, { useState } from 'react';
 import { useSearchParams } from 'expo-router';
 import { authenticate } from '../../lib/api/auth';
+import { useAuth } from '../../context/AuthContext'
+
 
 
 const Authenticate = () => {
 
     const [code, setCode] = useState('')
     const { email } = useSearchParams()
+    const { updateAuthToken } = useAuth()
+
+    const currentuserImage = email //get the current users data and its profile image from the database
+
+
+
 
     const onConfirm = async () => {
         // console.warn('Sign in with the code that was sent to your mail', code, email)
@@ -23,7 +31,9 @@ const Authenticate = () => {
         try {
             console.log(code)
             const res = await authenticate({ email, emailToken: code })
+            await updateAuthToken(res)
             console.log('Response: ', res)
+
         } catch (error) {
             Alert.alert('Error email code does not match', error.message)
 

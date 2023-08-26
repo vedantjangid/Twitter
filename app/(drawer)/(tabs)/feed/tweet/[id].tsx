@@ -1,11 +1,12 @@
 import { View, Text, ActivityIndicator } from "react-native";
 import Tweet from "../../../../../components/Tweet";
 import { useQuery } from "@tanstack/react-query";
-import { getTweet } from "../../../../../lib/api/tweets";
+import { useTweetsApi } from "../../../../../lib/api/tweets";
 import { useSearchParams } from "expo-router";
 
 export default function TweetScreen() {
     const { id } = useSearchParams();
+    const { getTweet } = useTweetsApi()
     const { data, isLoading, error } = useQuery({
         queryKey: ['tweet', id],
         queryFn: () => getTweet(id as string),

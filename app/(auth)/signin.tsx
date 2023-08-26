@@ -17,7 +17,7 @@ const SignIn = () => {
     const router = useRouter()
 
     const onSignInPress = async () => {
-        console.warn('Sign in', email)
+
         try {
             await login({ email })
             router.push({ pathname: 'authenticate', params: { email } })
